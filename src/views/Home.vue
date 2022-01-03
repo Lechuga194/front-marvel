@@ -1,18 +1,38 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <span v-for="heroe in heroes" :key="heroe.id" style="margin-bottom: 10px;">
+      <Tarjeta :heroe="heroe"/>
+    </span>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
+import Tarjeta from '@/components/Tarjeta.vue'
+import axios from 'axios'
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Tarjeta
+  },
+  data() {
+    return {
+      heroes: [1,2,3],
+    };
+  },
+  created(){
+    this.getHeroes();
+  },
+  methods: {
+    async getHeroes(){
+      await axios
+        .get("/getHeroes")
+        .then((res) => {
+          this.heroes = res.data;
+          console.log(res.data)
+        })
+        .catch((error) => console.log("Error al obtener listado: " + error))
+    }
   }
 }
 </script>

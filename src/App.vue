@@ -1,30 +1,46 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="body">
+    <div class="nav-container">
+      <h1>Marvel's Heroes</h1>
+      <span class="button-add">
+        <fa icon="plus" />
+      </span>
+    </div>
   </div>
   <router-view/>
 </template>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.body{
+    display: flex;
+    justify-content: center;
 }
+
+.nav-container{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 600px;
+    justify-items: start;
+    align-items: center;
+    margin-bottom: 30px;
+}   
+
+.button-add {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius:50px; /* half of width + borders */ 
+  line-height: 50px; /* vertical center */
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 3px 5px rgb(196, 196, 196);
+  background: linear-gradient(75deg, rgba(250,228,99,1) 0%, rgba(255,221,20,1) 8%, rgba(255,59,0,1) 100%);
+  justify-self: end;
+}
+
 </style>
