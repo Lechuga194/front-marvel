@@ -1,28 +1,76 @@
 <template>
     <div class="container">
-        <div class="image-cropper">
+        <div class="image-cropper" @click="$emit('heroDetails')">
             <img :src="heroe.imagen" alt="foto">
         </div>
-        <div class="names">
+        <div class="names" @click="$emit('heroDetails')">
             <p>{{heroe.alias}} <span> {{heroe.nombre}}</span></p>
         </div>
         <div class="button-container">
             <span class="button" id="edit">
                 <fa icon="pen" />
             </span>
-            <span class="button" id="delete">
+            <span class="button" id="delete" @click="showDeleteModal()">
                 <fa icon="times"/>
             </span>
+            <transition name="fade" appear>
+                <div 
+                    class="modal-overlay"
+                    v-if="displayDeleteModal"
+                    @click="hideDeleteModal()"></div>
+            </transition>
+            <transition name="slide" appear>
+                <div class="modal" v-if="displayDeleteModal">
+                    <DeleteModal
+                        :alias="heroe.alias"
+                        @displayModal="hideDeleteModal"
+                        @delete="deleteHero"
+                        />
+                </div>
+            </transition>
         </div>
     </div>
 </template>
 
 <script>
+import DeleteModal from '@/components/DeleteModal.vue'
+import axios from 'axios'
+
 export default {
     name: "Tarjeta",
+    components: {
+        DeleteModal
+    },
     props: {
         heroe: Object,
     },
+    data(){
+        return{
+            displayDeleteModal: false,
+        }
+    },
+    emits: ["heroDetails", "listUpdate"],
+    methods: {
+        showDeleteModal(){
+            this.displayDeleteModal = true;
+        },
+        hideDeleteModal(){
+            this.displayDeleteModal = false;
+        },
+        deleteHero(){
+            console.log(this.heroe.id)
+            axios.delete(`/deleteHero/${encodeURIComponent(this.heroe.id)}`)
+            .then(res => {
+                if(res.status == 200){
+                    this.hideDeleteModal()
+                    this.$emit("listUpdate")
+                    console.log("Heroe eliminado con exito")
+                    
+                }
+            });
+        },
+        listUpdate(){}
+    }
 }
 </script>
 
@@ -57,11 +105,13 @@ export default {
         margin: 0 auto;
         height: 100%;
         width: auto;
+        cursor: pointer;
     }
 
     .names{
        text-align: left;
        padding-right: 25px;
+       cursor: pointer;
     }
 
     .names p {
@@ -102,6 +152,44 @@ export default {
     #delete{
         background: rgb(226,24,24);
         font-size: 20px;
+    }
+
+    .modal-overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 98;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .modal{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 99;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+    transition: opacity .5s;
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+    opacity: 0;
+    }
+
+    .slide-enter-active,
+    .slide-leave-active {
+    transition: transform 1s;
+    }
+
+    .slide-enter,
+    .slide-leave-to {
+    transform: translateY(-50%) translateX(100vw);
     }
 
 </style>

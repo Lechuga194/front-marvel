@@ -1,20 +1,45 @@
 <template>
-    <form method="POST">
+    <form @submit.prevent="onSubmitCreate" method="POST">
         <div class="datos-container">
             <div class="datos-upper">
-                <input type="text" name="name" placeholder="Original Name">
-                <input type="text" name="alias" placeholder="Aka">
+                <input type="text" v-model="heroe.name" name="name" placeholder="Original Name">
+                <input type="text" v-model="heroe.alias" name="alias" placeholder="Aka">
             </div>
-                <input type="url" name="image" placeholder="Image URL">
-                <textarea name="details" placeholder="Details..."></textarea>
+                <input type="url" v-model="heroe.image" name="image" placeholder="Image URL">
+                <textarea name="details" v-model="heroe.details" placeholder="Details..."></textarea>
                 <input type="submit" value="Save changes">
         </div>
     </form>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: "Datos",
+    data(){
+        return{
+            heroe: {
+                name: '',
+                alias: '',
+                image: '',
+                details: '',
+            }
+        }
+    },
+    methods: {
+        onSubmitCreate(e){
+            e.preventDefault()
+            axios.post('/createHero', this.heroe)
+            .then(res => {
+                if(res.status == 200){
+                    console.log("Heroe agregado con exito")
+                    this.$router.push({name:'Home'});
+                }
+            })
+            .catch(err => console.log("Ocurrio un erro al agregar el heroe", err))
+        }
+    }
 }
 </script>
 

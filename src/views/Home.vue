@@ -1,8 +1,12 @@
 <template>
   <div class="home">
     <Detalle v-if="showDetails" :heroe="selectedHeroe" :key="selectedHeroe.id"/>
-    <span v-for="heroe in heroes" v-bind:key="heroe.id">
-      <Tarjeta :heroe="heroe" @click="setHeroe(heroe)" :key="heroe.id" v-bind:class="{selected: heroe == selectedHeroe}"/>
+    <span v-for="(heroe, index) in heroes" v-bind:key="index">
+      <Tarjeta 
+        :heroe="heroe"
+        v-bind:class="{selected: heroe == selectedHeroe}"
+        @heroDetails="setHeroe(heroe)"
+        @listUpdate="this.heroes.splice(index, 1)"/>
     </span>
   </div>
 </template>
