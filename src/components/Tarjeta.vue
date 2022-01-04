@@ -1,20 +1,18 @@
 <template>
-    <div class="body">
-        <div class="container">
-            <div class="image-cropper">
-                <img :src="heroe.imagen" alt="foto">
-            </div>
-            <div class="names">
-                <p>{{heroe.alias}} <span> {{heroe.nombre}}</span></p>
-            </div>
-            <div class="button-container">
-                <span class="button" id="edit">
-                    <fa icon="pen" />
-                </span>
-                <span class="button" id="delete">
-                    <fa icon="times"/>
-                </span>
-            </div>
+    <div class="container">
+        <div class="image-cropper">
+            <img :src="heroe.imagen" alt="foto">
+        </div>
+        <div class="names">
+            <p>{{heroe.alias}} <span> {{heroe.nombre}}</span></p>
+        </div>
+        <div class="button-container">
+            <span class="button" id="edit">
+                <fa icon="pen" />
+            </span>
+            <span class="button" id="delete">
+                <fa icon="times"/>
+            </span>
         </div>
     </div>
 </template>
@@ -30,11 +28,6 @@ export default {
 
 <style>
 
-    .body{
-        display: flex;
-        justify-content: center;
-    }
-
     .container{
         display: grid;
         grid-template-columns: 20% 60% 20%;
@@ -45,6 +38,8 @@ export default {
         justify-items: start;
         align-items: center;
         justify-content: start;
+        margin: auto;
+        margin-bottom: 15px;
     }   
 
     .image-cropper {

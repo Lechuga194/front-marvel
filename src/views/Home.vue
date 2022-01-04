@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <span v-for="heroe in heroes" :key="heroe.id" style="margin-bottom: 10px;">
-      <Tarjeta :heroe="heroe"/>
+    <Detalle v-if="showDetails" :heroe="selectedHeroe" :key="selectedHeroe.id"/>
+    <span v-for="heroe in heroes" v-bind:key="heroe.id">
+      <Tarjeta :heroe="heroe" @click="setHeroe(heroe)" :key="heroe.id" v-bind:class="{selected: heroe == selectedHeroe}"/>
     </span>
   </div>
 </template>
@@ -9,15 +10,19 @@
 <script>
 
 import Tarjeta from '@/components/Tarjeta.vue'
+import Detalle from '@/components/Detalle.vue'
 import axios from 'axios'
 export default {
   name: 'Home',
   components: {
-    Tarjeta
+    Tarjeta,
+    Detalle
   },
   data() {
     return {
-      heroes: [1,2,3],
+      heroes: [],
+      showDetails: false,
+      selectedHeroe: Object,
     };
   },
   created(){
@@ -32,7 +37,22 @@ export default {
           console.log(res.data)
         })
         .catch((error) => console.log("Error al obtener listado: " + error))
-    }
+    },
+    setHeroe(heroe){
+        if(this.selectedHeroe != heroe){
+          this.selectedHeroe = heroe;
+          this.showDetails = true;
+        }else{
+          this.selectedHeroe = null;
+          this.showDetails = false; //Escodemos los detalles si se hace click en el mismo heroe
+        }
+    },
   }
 }
 </script>
+
+<style>
+  .selected{
+    border-color: rgb(45,156,219);
+  }
+</style>
