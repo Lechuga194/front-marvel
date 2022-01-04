@@ -9,7 +9,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-axios.defaults.baseURL = "http://127.0.0.1:3001";
+//LOCAL
+//axios.defaults.baseURL = "http://127.0.0.1:3001";
+
+axios.defaults.baseURL = "https://antware-marvel.herokuapp.com";
 
 library.add(fas) //Iconos
 
