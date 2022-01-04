@@ -1,12 +1,32 @@
 <template>
-    <form @submit.prevent="onSubmitCreate" method="POST">
+
+    <div v-if="fromUpdate" class="update-image-cropper">
+        <img :src="heroe.image" alt="foto">
+    </div>
+
+    <form @submit.prevent="onSubmit" method="POST">
         <div class="datos-container">
             <div class="datos-upper">
-                <input type="text" v-model="heroe.name" name="name" placeholder="Original Name">
-                <input type="text" v-model="heroe.alias" name="alias" placeholder="Aka">
+                <input 
+                    type="text" 
+                    v-model="heroe.name" 
+                    name="name" 
+                    placeholder="Original Name">
+                <input 
+                    type="text" 
+                    v-model="heroe.alias" 
+                    name="alias" 
+                    placeholder="Aka">
             </div>
-                <input type="url" v-model="heroe.image" name="image" placeholder="Image URL">
-                <textarea name="details" v-model="heroe.details" placeholder="Details..."></textarea>
+                <input 
+                    type="url" 
+                    v-model="heroe.image" 
+                    name="image" 
+                    placeholder="Image URL">
+                <textarea 
+                    name="details" 
+                    v-model="heroe.details" 
+                    placeholder="Details..."></textarea>
                 <input type="submit" value="Save changes">
         </div>
     </form>
@@ -14,12 +34,21 @@
 
 <script>
 import axios from 'axios'
+import { useRoute } from 'vue-router'
 
 export default {
     name: "Datos",
-    data(){
+    props: ['fromUpdate'],
+    created(){
+        if(this.fromUpdate){
+            const route = useRoute();
+            this.get(route.params.id)        
+        }
+    },
+    data(){        
         return{
             heroe: {
+                id: '',
                 name: '',
                 alias: '',
                 image: '',
@@ -28,9 +57,14 @@ export default {
         }
     },
     methods: {
-        onSubmitCreate(e){
+        onSubmit(e){
             e.preventDefault()
-            axios.post('/createHero', this.heroe)
+            if(this.fromUpdate) 
+                return this.update(this.heroe)
+            return this.create(this.heroe)
+        },
+        create(heroe){
+            axios.post('/createHero', heroe)
             .then(res => {
                 if(res.status == 200){
                     console.log("Heroe agregado con exito")
@@ -38,6 +72,33 @@ export default {
                 }
             })
             .catch(err => console.log("Ocurrio un erro al agregar el heroe", err))
+        },
+        update(heroe){
+            axios.post('/updateHero', heroe)
+            .then(res => {
+                if(res.status == 200){
+                    this.$router.push({name:'Home'});
+                }
+            })
+            .catch(err => console.log("Ocurrio un erro al modificar el heroe", err))
+        },
+        async get(id){
+            axios.get(`/getHero/${encodeURIComponent(id)}`)
+            .then(res => {
+                const {id, nombre, alias, imagen, descripcion} = res.data[0]
+                const heroe = {
+                    id: id,
+                    name: nombre,
+                    alias: alias,
+                    image: imagen,
+                    details: descripcion
+                }
+                this.heroe = heroe
+            })
+            .catch(err => {
+                console.log("Ocurrio un error al encontrar al heroe solicitado", err);
+                this.$router.push({name:'Home'});
+            })
         }
     }
 }

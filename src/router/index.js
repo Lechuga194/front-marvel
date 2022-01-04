@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Create from '../views/Create.vue'
+import Update from '../views/Update.vue'
 
 const routes = [
   {
@@ -12,7 +13,16 @@ const routes = [
     path: '/create',
     name: 'Create',
     component: Create
-  }
+  },
+  {
+    path: '/update/:id',
+    name: 'Update',
+    component: Update
+  },
+  {
+    path: "/:catchAll(.*)",
+    component: Home,
+  },
 ]
 
 const router = createRouter({

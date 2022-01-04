@@ -7,7 +7,7 @@
             <p>{{heroe.alias}} <span> {{heroe.nombre}}</span></p>
         </div>
         <div class="button-container">
-            <span class="button" id="edit">
+            <span class="button" id="edit" @click="editHero(heroe)">
                 <fa icon="pen" />
             </span>
             <span class="button" id="delete" @click="showDeleteModal()">
@@ -65,11 +65,15 @@ export default {
                     this.hideDeleteModal()
                     this.$emit("listUpdate")
                     console.log("Heroe eliminado con exito")
-                    
                 }
             });
         },
-        listUpdate(){}
+        editHero(heroe){
+            this.$router.push({
+                name:'Update',
+                params: heroe
+            })
+        }
     }
 }
 </script>
