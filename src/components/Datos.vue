@@ -11,18 +11,21 @@
                     type="text" 
                     v-model="hero.name" 
                     name="name" 
-                    placeholder="Original Name">
+                    placeholder="Original Name"
+                    required>
                 <input 
                     type="text" 
                     v-model="hero.alias" 
                     name="alias" 
-                    placeholder="Aka">
+                    placeholder="Aka"
+                    required>
             </div>
                 <input 
                     type="url" 
                     v-model="hero.image" 
                     name="image" 
-                    placeholder="Image URL">
+                    placeholder="Image URL"
+                    required>
                 <textarea 
                     name="details" 
                     v-model="hero.details" 
