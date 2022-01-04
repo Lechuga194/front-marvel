@@ -1,7 +1,7 @@
 <template>
 
-    <div v-if="fromUpdate" class="update-image-cropper">
-        <img :src="heroe.image" alt="foto">
+    <div v-if="fromUpdate" class="image-cropper-100">
+        <img :src="hero.image" alt="foto">
     </div>
 
     <form @submit.prevent="onSubmit" method="POST">
@@ -9,23 +9,23 @@
             <div class="datos-upper">
                 <input 
                     type="text" 
-                    v-model="heroe.name" 
+                    v-model="hero.name" 
                     name="name" 
                     placeholder="Original Name">
                 <input 
                     type="text" 
-                    v-model="heroe.alias" 
+                    v-model="hero.alias" 
                     name="alias" 
                     placeholder="Aka">
             </div>
                 <input 
                     type="url" 
-                    v-model="heroe.image" 
+                    v-model="hero.image" 
                     name="image" 
                     placeholder="Image URL">
                 <textarea 
                     name="details" 
-                    v-model="heroe.details" 
+                    v-model="hero.details" 
                     placeholder="Details..."></textarea>
                 <input type="submit" value="Save changes">
         </div>
@@ -47,7 +47,7 @@ export default {
     },
     data(){        
         return{
-            heroe: {
+            hero: {
                 id: '',
                 name: '',
                 alias: '',
@@ -60,43 +60,43 @@ export default {
         onSubmit(e){
             e.preventDefault()
             if(this.fromUpdate) 
-                return this.update(this.heroe)
-            return this.create(this.heroe)
+                return this.update(this.hero)
+            return this.create(this.hero)
         },
-        create(heroe){
-            axios.post('/createHero', heroe)
+        create(hero){
+            axios.post('/createHero', hero)
             .then(res => {
                 if(res.status == 200){
-                    console.log("Heroe agregado con exito")
+                    console.log("Hero added")
                     this.$router.push({name:'Home'});
                 }
             })
-            .catch(err => console.log("Ocurrio un erro al agregar el heroe", err))
+            .catch(err => console.log("An error occurred while adding the hero", err))
         },
-        update(heroe){
-            axios.post('/updateHero', heroe)
+        update(hero){
+            axios.post('/updateHero', hero)
             .then(res => {
                 if(res.status == 200){
                     this.$router.push({name:'Home'});
                 }
             })
-            .catch(err => console.log("Ocurrio un erro al modificar el heroe", err))
+            .catch(err => console.log("An error occurred while editing the hero", err))
         },
         async get(id){
             axios.get(`/getHero/${encodeURIComponent(id)}`)
             .then(res => {
-                const {id, nombre, alias, imagen, descripcion} = res.data[0]
-                const heroe = {
+                const {id, name, alias, image, details} = res.data[0]
+                const hero = {
                     id: id,
-                    name: nombre,
+                    name: name,
                     alias: alias,
-                    image: imagen,
-                    details: descripcion
+                    image: image,
+                    details: details
                 }
-                this.heroe = heroe
+                this.hero = hero
             })
             .catch(err => {
-                console.log("Ocurrio un error al encontrar al heroe solicitado", err);
+                console.log("Hero not found", err);
                 this.$router.push({name:'Home'});
             })
         }

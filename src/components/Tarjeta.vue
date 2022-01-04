@@ -1,13 +1,13 @@
 <template>
-    <div class="container">
+    <div class="card-container">
         <div class="image-cropper" @click="$emit('heroDetails')">
-            <img :src="heroe.imagen" alt="foto">
+            <img :src="hero.image" :alt="hero.name">
         </div>
         <div class="names" @click="$emit('heroDetails')">
-            <p>{{heroe.alias}} <span> {{heroe.nombre}}</span></p>
+            <p>{{hero.alias}} <span> {{hero.name}}</span></p>
         </div>
         <div class="button-container">
-            <span class="button" id="edit" @click="editHero(heroe)">
+            <span class="button" id="edit" @click="editHero(hero)">
                 <fa icon="pen" />
             </span>
             <span class="button" id="delete" @click="showDeleteModal()">
@@ -22,7 +22,7 @@
             <transition name="slide" appear>
                 <div class="modal" v-if="displayDeleteModal">
                     <DeleteModal
-                        :alias="heroe.alias"
+                        :alias="hero.alias"
                         @displayModal="hideDeleteModal"
                         @delete="deleteHero"
                         />
@@ -42,7 +42,7 @@ export default {
         DeleteModal
     },
     props: {
-        heroe: Object,
+        hero: Object,
     },
     data(){
         return{
@@ -58,20 +58,18 @@ export default {
             this.displayDeleteModal = false;
         },
         deleteHero(){
-            console.log(this.heroe.id)
-            axios.delete(`/deleteHero/${encodeURIComponent(this.heroe.id)}`)
+            axios.delete(`/deleteHero/${encodeURIComponent(this.hero.id)}`)
             .then(res => {
                 if(res.status == 200){
                     this.hideDeleteModal()
                     this.$emit("listUpdate")
-                    console.log("Heroe eliminado con exito")
                 }
             });
         },
-        editHero(heroe){
+        editHero(hero){
             this.$router.push({
                 name:'Update',
-                params: heroe
+                params: hero
             })
         }
     }
@@ -80,7 +78,7 @@ export default {
 
 <style>
 
-    .container{
+    .card-container{
         display: grid;
         grid-template-columns: 20% 60% 20%;
         width: 600px;

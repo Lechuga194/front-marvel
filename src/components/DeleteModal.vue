@@ -2,7 +2,7 @@
     <div class="modal-container">
         <div class="title">
             <p>Delete Hero</p>
-            <span class="abutton" id="cancel" @click="$emit('displayModal')">
+            <span class="app-button" id="cancel" @click="$emit('displayModal')">
                 <fa icon="times" />
             </span>
         </div>

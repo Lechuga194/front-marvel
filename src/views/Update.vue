@@ -1,6 +1,6 @@
 <template>
   <div class="update-container">
-      <Datos :fromUpdate="true"/>
+      <Datos :fromUpdate="true"/> 
   </div>
 </template>
 
@@ -23,20 +23,4 @@ export default {
     row-gap: 15px;
   }
 
-  .update-image-cropper {
-      width: 100px;
-      height: 100px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 50%;
-      justify-self: center;
-      align-self: center;
-  }
-
-  img {
-      display: inline;
-      margin: 0 auto;
-      height: 100%;
-      width: auto;
-  }
 </style>

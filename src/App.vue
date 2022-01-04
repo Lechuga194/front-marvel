@@ -1,15 +1,15 @@
 <template>
   <div class="body">
-    <div class="nav-container">
+    <div class="app-container">
       <router-link
         style="text-decoration: none; color: inherit;"
         to="/">
         <h1>Marvel's Heroes</h1>
       </router-link>
-      <router-link v-if="!onCreateHeroe" to="/create" class="abutton" id="add">
+      <router-link v-if="!onCreateHero" to="/create" class="app-button" id="addbtn">
         <fa icon="plus" />
       </router-link>
-      <router-link v-if="onCreateHeroe" to="/" class="abutton" id="cancel">
+      <router-link v-if="onCreateHero" to="/" class="app-button" id="cancelbtn">
         <fa icon="times" />
       </router-link>
     </div>
@@ -21,9 +21,12 @@
   export default {
   name: 'App',
   computed:{
-    onCreateHeroe(){
+    onCreateHero(){
       return this.$route.name === 'Create';
     }
+  },
+  created(){
+    document.title = "Marvel's Heroes";
   }
 }
 </script>
@@ -40,7 +43,7 @@
     justify-content: center;
 }
 
-.nav-container{
+.app-container{
     display: grid;
     grid-template-columns: 50% 50%;
     width: 600px;
@@ -49,7 +52,7 @@
     margin-bottom: 30px;
 }   
 
-.abutton{
+.app-button{
   display: inline-block;
   width: 50px;
   height: 50px;
@@ -60,14 +63,31 @@
   justify-self: end;
 } 
 
-#add {
+#addbtn {
   color: white;
   background: linear-gradient(75deg, rgba(250,228,99,1) 0%, rgba(255,221,20,1) 8%, rgba(255,59,0,1) 100%);
 }
 
-#cancel {
+#cancelbtn {
   background: #e6e6e6;
   color: black;
 }
+
+  .image-cropper-100 {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 50%;
+      justify-self: center;
+      align-self: center;
+  }
+
+  img {
+      display: inline;
+      margin: 0 auto;
+      height: 100%;
+      width: auto;
+  }
 
 </style>

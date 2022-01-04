@@ -2,12 +2,12 @@
    <div class="detalle-body">
         <div class="detalle-container">
             <div class="detalle-image-cropper">
-                <img :src="heroe.imagen" alt="foto">
+                <img :src="hero.image" :alt="hero.name">
             </div>
             <div class="detalle-names">
-                <p>{{heroe.alias}} <span> {{heroe.nombre}}</span></p>
+                <p>{{hero.alias}} <span> {{hero.name}}</span></p>
             </div>
-            <span class="detalle-descripcion">{{heroe.descripcion}}</span>
+            <span class="detalle-descripcion">{{hero.details}}</span>
         </div>
     </div>
 </template>
@@ -16,7 +16,7 @@
 export default {
     name: "Detalle",
     props: {
-        heroe: Object,
+        hero: Object,
     },
 }
 </script>

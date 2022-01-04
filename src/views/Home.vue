@@ -1,12 +1,12 @@
 <template>
   <div class="home">
-    <Detalle v-if="showDetails" :heroe="selectedHeroe" :key="selectedHeroe.id"/>
-    <span v-for="(heroe, index) in heroes" v-bind:key="index">
+    <Detalle v-if="showDetails" :hero="selectedHero" :key="selectedHero.id"/>
+    <span v-for="(hero, index) in heros" v-bind:key="index">
       <Tarjeta 
-        :heroe="heroe"
-        v-bind:class="{selected: heroe == selectedHeroe}"
-        @heroDetails="setHeroe(heroe)"
-        @listUpdate="this.heroes.splice(index, 1)"/>
+        :hero="hero"
+        v-bind:class="{selected: hero == selectedHero}"
+        @heroDetails="sethero(hero)"
+        @listUpdate="this.heros.splice(index, 1)"/>
     </span>
   </div>
 </template>
@@ -24,31 +24,30 @@ export default {
   },
   data() {
     return {
-      heroes: [],
+      heros: [],
       showDetails: false,
-      selectedHeroe: Object,
+      selectedHero: Object,
     };
   },
   created(){
-    this.getHeroes();
+    this.getheros();
   },
   methods: {
-    async getHeroes(){
+    async getheros(){
       await axios
-        .get("/getHeroes")
+        .get("/getheros") //TODO cambiar a ingles
         .then((res) => {
-          this.heroes = res.data;
-          console.log(res.data)
+          this.heros = res.data;
         })
         .catch((error) => console.log("Error al obtener listado: " + error))
     },
-    setHeroe(heroe){
-        if(this.selectedHeroe != heroe){
-          this.selectedHeroe = heroe;
+    sethero(hero){
+        if(this.selectedHero != hero){
+          this.selectedHero = hero;
           this.showDetails = true;
         }else{
-          this.selectedHeroe = null;
-          this.showDetails = false; //Escodemos los detalles si se hace click en el mismo heroe
+          this.selectedHero = null;
+          this.showDetails = false; //Escodemos los detalles si se hace click en el mismo hero
         }
     },
   }
