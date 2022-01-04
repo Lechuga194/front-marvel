@@ -1,7 +1,7 @@
 <template>
    <div class="detalle-body">
         <div class="detalle-container">
-            <div class="detalle-image-cropper">
+            <div class="image-cropper-100">
                 <img :src="hero.image" :alt="hero.name">
             </div>
             <div class="detalle-names">
@@ -33,16 +33,6 @@ export default {
         grid-template-rows: auto auto auto;
         width: 600px;
         
-    }
-
-    .detalle-image-cropper {
-        width: 100px;
-        height: 100px;
-        position: relative;
-        overflow: hidden;
-        border-radius: 50%;
-        justify-self: center;
-        align-self: center;
     }
 
     .detalle-names p {

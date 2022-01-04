@@ -33,45 +33,45 @@
 
 
 <style lang="scss">
-#app {
-  font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
-}
+  #app {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+  }
 
-.body{
-    display: flex;
-    justify-content: center;
-}
+  .body{
+      display: flex;
+      justify-content: center;
+  }
 
-.app-container{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    width: 600px;
-    justify-items: start;
-    align-items: center;
-    margin-bottom: 30px;
-}   
+  .app-container{
+      display: grid;
+      grid-template-columns: 50% 50%;
+      width: 600px;
+      justify-items: start;
+      align-items: center;
+      margin-bottom: 30px;
+  }   
 
-.app-button{
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  border-radius:50px;
-  line-height: 52px;
-  cursor: pointer;
-  box-shadow: 0 3px 5px rgb(196, 196, 196);
-  justify-self: end;
-} 
+  .app-button{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius:50px;
+    line-height: 52px;
+    cursor: pointer;
+    box-shadow: 0 3px 5px rgb(196, 196, 196);
+    justify-self: end;
+  } 
 
-#addbtn {
-  color: white;
-  background: linear-gradient(75deg, rgba(250,228,99,1) 0%, rgba(255,221,20,1) 8%, rgba(255,59,0,1) 100%);
-}
+  #addbtn {
+    color: white;
+    background: linear-gradient(75deg, rgba(250,228,99,1) 0%, rgba(255,221,20,1) 8%, rgba(255,59,0,1) 100%);
+  }
 
-#cancelbtn {
-  background: #e6e6e6;
-  color: black;
-}
+  #cancelbtn {
+    background: #e6e6e6;
+    color: black;
+  }
 
   .image-cropper-100 {
       width: 100px;

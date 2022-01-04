@@ -1,16 +1,16 @@
 <template>
   <div class="update-container">
-      <Datos :fromUpdate="true"/> 
+      <Form :fromUpdate="true"/> 
   </div>
 </template>
 
 <script>
-import Datos from '@/components/Datos.vue'
+import Form from '@/components/Form.vue'
 
 export default {
   name: 'Update',
   components: {
-    Datos,
+    Form,
   },
 }
 </script>

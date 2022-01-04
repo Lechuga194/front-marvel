@@ -1,5 +1,4 @@
 <template>
-
     <div v-if="fromUpdate" class="image-cropper-100">
         <img :src="hero.image" alt="foto">
     </div>
@@ -40,7 +39,7 @@ import axios from 'axios'
 import { useRoute } from 'vue-router'
 
 export default {
-    name: "Datos",
+    name: "Form",
     props: ['fromUpdate'],
     created(){
         if(this.fromUpdate){

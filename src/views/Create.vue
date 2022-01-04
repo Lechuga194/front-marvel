@@ -1,14 +1,14 @@
 <template>
-    <Datos />
+    <Form />
 </template>
 
 <script>
-import Datos from '@/components/Datos.vue'
+import Form from '@/components/Form.vue'
 
 export default {
   name: 'Create',
   components: {
-    Datos
+    Form
   },
 }
 </script>

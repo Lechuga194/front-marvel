@@ -1,6 +1,6 @@
 <template>
     <div class="card-container">
-        <div class="image-cropper" @click="$emit('heroDetails')">
+        <div class="image-cropper-80" @click="$emit('heroDetails')">
             <img :src="hero.image" :alt="hero.name">
         </div>
         <div class="names" @click="$emit('heroDetails')">
@@ -92,7 +92,7 @@ export default {
         margin-bottom: 15px;
     }   
 
-    .image-cropper {
+    .image-cropper-80 {
         width: 80px;
         height: 80px;
         position: relative;
@@ -103,10 +103,6 @@ export default {
     }
 
     img {
-        display: inline;
-        margin: 0 auto;
-        height: 100%;
-        width: auto;
         cursor: pointer;
     }
 

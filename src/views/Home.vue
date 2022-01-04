@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <Detalle v-if="showDetails" :hero="selectedHero" :key="selectedHero.id"/>
+    <HeroDetails v-if="showDetails" :hero="selectedHero" :key="selectedHero.id"/>
     <span v-for="(hero, index) in heros" v-bind:key="index">
-      <Tarjeta 
+      <HeroCard 
         :hero="hero"
         v-bind:class="{selected: hero == selectedHero}"
         @heroDetails="sethero(hero)"
@@ -13,14 +13,14 @@
 
 <script>
 
-import Tarjeta from '@/components/Tarjeta.vue'
-import Detalle from '@/components/Detalle.vue'
+import HeroCard from '@/components/HeroCard.vue'
+import HeroDetails from '@/components/HeroDetails.vue'
 import axios from 'axios'
 export default {
   name: 'Home',
   components: {
-    Tarjeta,
-    Detalle
+    HeroCard,
+    HeroDetails
   },
   data() {
     return {
@@ -35,7 +35,7 @@ export default {
   methods: {
     async getheros(){
       await axios
-        .get("/getheros") //TODO cambiar a ingles
+        .get("/getheros")
         .then((res) => {
           this.heros = res.data;
         })
