@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Create from '../views/Create.vue'
 import Update from '../views/Update.vue'
@@ -25,8 +25,10 @@ const routes = [
   },
 ]
 
+//Github pages fix history: createWebHistory(process.env.BASE_URL),
+
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(process.env.BASE_URL),
   routes
 })
 
